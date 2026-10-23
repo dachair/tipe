@@ -1,0 +1,3 @@
+### Besoin de :
+- numpy
+- matplotlib
