@@ -96,10 +96,11 @@ def get_max_pop (foyers) :
     return (m, i)
 
 
-def placer_antenne (foyers : list, antennes : list) :
-    max_i = get_max_pop(foyers)[1]
-    max_x, max_y = (foyers[max_i].x, foyers[max_i].y)
-    antennes.append(antenne(x=max_x, y=max_y))
+def placer_antenne_2_foyers (foyer1 : list, foyer2) : 
+    x = (foyer1.x + foyer2.x)/2
+    y = (foyer1.y + foyer2.y)/2
+    return antenne(x=x, y=y)
+
 
 
 #vérifie si un foyer est couvert par une antenne et retourne true, l'antenne concernée sinon faux
@@ -109,17 +110,32 @@ def est_couvert (antennes, foyer) :
             return (True, i)
     return False
 
+def est_couvert_par (antenne, foyer) :
+    return (euc_distance(antenne, foyer) <= antenne.rayon_emission) 
+
+
+#on place les antennes sur les barycentres des foyers si les foyers sont couverts par cette
+#antenne, sinon on le place sur la barcycentre des foyers les plus importants
+#et on diminue jusqu'à couvrir dans le pire cas qu'un seul foyer
+def placer_antenne (foyers : list, antennes : list) :
+    for i in range (1, len(foyers) - 1) :
+        est_couvert_par(placer_antenne_2_foyers (foyers[i-1], foyers[i]))
+
+
+
+'''essayer une approche avec kruskal en utilisant un graphe pondéré dont les sommets sont 
+les foyers, les foyers ont pour étiquette le nombre de personnes qui y habitent et 
+comme poids, pour commencer la distance entre eux, sinon la difficulté qu'aurait une 
+onde entre les 2 à se propager'''
 
 #m_ax.scatter(f1.x, f1.y, color="red")
 #m_ax.annotate(f1.nom, (f1.x, f1.y), xytext=(f1.x + 2, f1.y +2), textcoords="data")
 
 foyers = [f1, f2]
 antennes = [a0]
-placer_antenne(foyers, antennes)
+placer_antenne_2_foyers(foyers, antennes)
 
-a1 = antennes[1]
-a1.x = (f1.x + f2.x)/2
-a1.y = (f1.y + f2.y)/2
+
 #c'est mieux de placer l'antenne entre 2 foyers quand elle peut couvrir les 2
 
 
