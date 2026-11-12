@@ -133,7 +133,7 @@ onde entre les 2 à se propager'''
 
 foyers = [f1, f2]
 antennes = [a0]
-placer_antenne_2_foyers(foyers, antennes)
+#placer_antenne_2_foyers(foyers, antennes)
 
 
 #c'est mieux de placer l'antenne entre 2 foyers quand elle peut couvrir les 2
