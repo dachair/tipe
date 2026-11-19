@@ -72,7 +72,9 @@ def afficher_foyers (liste_foyers) :
         m_ax.annotate(f.nom, (f.x, f.y), xytext=(f.x + 2, f.y +2), textcoords="data")
 
 
-print("surface =", demi_l**2, "m²")
+
+
+
 
 
 f1 = foyer("f1", nb_personnes=2)
@@ -140,6 +142,7 @@ antennes = [a0]
 
 
 afficher_foyers(foyers)
+print("surface =", demi_l**2, "m²")
 
 afficher_antennes(antennes)
 plt.show()
